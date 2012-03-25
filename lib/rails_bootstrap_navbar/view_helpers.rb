@@ -13,6 +13,17 @@ module RailsBootstrapNavbar
 			end
 	  end
 
+	  def side_bar(options={}, &block)
+			raise ArgumentError, "side_bar requires a block to be passed to it" unless block_given?
+			# content = block_given? ? capture(&block) : ""
+			# content = with_output_buffer(&block) if block_given?
+			options.append_merge!(:class, "nav nav-list")
+			# content_tag :ul, options do
+			#	capture(&block) if block_given?
+			# end
+			content_tag(:ul, options, &block)
+	  end
+
 	  def menu_group(options={}, &block)
 			pull_class = " pull-#{options[:pull].to_s}" if options[:pull].present?
 			content_tag(:ul, :class => "nav#{pull_class}", &block)
@@ -35,9 +46,13 @@ module RailsBootstrapNavbar
 			content_tag :li, "", :class => "divider"
 	  end
 
+	  alias :side_bar_divider :drop_down_divider
+
 	  def drop_down_header(text)
 			content_tag :li, text, :class => "nav-header"
 	  end
+
+	  alias :side_bar_header :drop_down_header
 
 	  def menu_divider
 			content_tag :li, "", :class => "divider-vertical"

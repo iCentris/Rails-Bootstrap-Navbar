@@ -141,6 +141,55 @@ describe RailsBootstrapNavbar::ViewHelpers, :type => :helper do
 	  end
   end
 
+  describe "side_bar" do
+		it "requires a block" do
+		  lambda { side_bar }.should raise_error ArgumentError, "side_bar requires a block to be passed to it"
+		end
+
+    it "should render the default ul" do
+			side_bar do
+
+			end.should eql('<ul class="nav nav-list"></ul>')
+    end
+
+    it "should be able to add extra css classes" do
+      side_bar(:class => "my-class")do
+
+      end.should eql('<ul class="my-class nav nav-list"></ul>')
+    end
+
+    it "should pass arbitrary text through unescaped" do
+			side_bar do
+				'<b>Important Text</b>'
+			end.should eql('<ul class="nav nav-list"><b>Important Text</b></ul>')
+    end
+
+    describe "side_bar_header" do
+      it "should display an li with class nav-header" do
+				side_bar do
+					side_bar_header "Section 1"
+				end.should eql('<ul class="nav nav-list"><li class="nav-header">Section 1</li></ul>')
+      end
+    end
+
+    describe "side_bar_divider" do
+      it "should display an li with class divider" do
+        side_bar do
+					side_bar_divider
+				end.should eql('<ul class="nav nav-list"><li class="divider"></li></ul>')
+      end
+    end
+
+    describe "menu_items" do
+      it "should render a collection of menu_items" do
+        side_bar do
+					menu_item "Item 1"
+					menu_item "Item 2"
+				end.should eql('<ul class="nav nav-list"><li><a href="#">Item 1</a></li><li><a href="#">Item 2</a></li></ul>')
+      end
+    end
+  end
+
 end
 
 # HTML output

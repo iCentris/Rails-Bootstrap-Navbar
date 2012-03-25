@@ -1,6 +1,6 @@
 # RailsBootstrapNavbar [![Build Status](https://secure.travis-ci.org/julescopeland/Rails-Bootstrap-Navbar.png?branch=master)](http://travis-ci.org/julescopeland/Rails-Bootstrap-Navbar)
 
-The idea behind this gem is to make a really easy to use DSL for writing navbars for your rails apps, assuming you're already using Twitter Bootstrap >= 2.0 and Erb (It shouldn't make any difference how you ultimately get bootstrap into your app - i.e. through the sass-bootstrap gem, manually downloading the complied source, magic, whatever...). Just remember to include the javascript if you want things like dropdowns or responsive layouts.
+The idea behind this gem is to make a really easy to use DSL for writing navbars and sidebar nav lists for your rails apps, assuming you're already using Twitter Bootstrap >= 2.0 and Erb (It shouldn't make any difference how you ultimately get bootstrap into your app - i.e. through the sass-bootstrap gem, manually downloading the complied source, magic, whatever...). Just remember to include the javascript if you want things like dropdowns or responsive layouts.
 
 ## Installation
 
@@ -53,6 +53,25 @@ It should let you write things like:
 		<% end %>
 	<% end %>
 <% end %>
+
+...
+	<div class="well">
+		<%= side_bar :class => "my-side-bar-nav-list" do %>
+
+			<%= side_bar_header "Articles" %>
+
+			<%= menu_item "Sort by Date" %>
+			<%= menu_item "Sort by Popularity" %>
+			<%= menu_item "Sort by Name" %>
+
+			<%= menu_divider %>
+
+			<%= menu_item "Most Popular Today" %>
+			<%= menu_item "Most Popular This Week" %>
+			<%= menu_item "Most Popular This Month" %>
+			<%= menu_item "Most Popular Evar!!" %>
+		<% end %>
+	</div>
 ````
 
 ### Navbar scaffolding
