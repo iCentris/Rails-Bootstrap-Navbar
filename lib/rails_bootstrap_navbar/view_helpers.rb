@@ -21,17 +21,29 @@ module RailsBootstrapNavbar
 	  end
 
 	  def menu_item(name, path="#", options = {})
-			content_tag :li, :id => options[:id], :class => is_active?(path) do
-				options[:id] = options[:id] + "_link" if options[:id]
+		content_tag :li, :id => options[:id], :class => is_active?(path) do
+			options[:id] = options[:id] + "_link" if options[:id]
+			if options[:icon]
+				link_to path, options do
+					span1 = content_tag :span, class: "icon" do
+						content_tag :i, "", class: options[:icon]
+					end
+					span2 = content_tag :span, class: "text" do
+						name
+					end
+					"#{span1}#{span2}".html_safe
+				end
+			else
 				link_to name, path, options
 			end
+		end
 	  end
 
-	  def drop_down(name, menu_type)
+	  def drop_down(name, options = {})
 	  	li_class = "dropdown"
-	  	li_class = "" if menu_type == "accordion"
+	  	li_class = "" if options[:menu_type] == "accordion"
 	  	content_tag :li, :class => li_class do
-	  		drop_down_link(name, menu_type) + drop_down_list(name, menu_type) {yield}
+	  		drop_down_link(name, options) + drop_down_list(name, options[:menu_type]) {yield}
 	  	end
 	  end
 
@@ -124,23 +136,33 @@ module RailsBootstrapNavbar
 			"active" if current_page?(path)
 	  end
 
-	  def name_and_caret(name)
-			"#{name} #{content_tag(:b, :class => "caret"){}}".html_safe
+	  def name_and_caret(name, options = {})
+	  		if options[:icon]
+				span1 = content_tag :span, class: "icon" do
+					content_tag :i, "", class: options[:icon]
+				end
+				span2 = content_tag :span, class: "text" do
+					name
+				end
+				"#{span1}#{span2} #{content_tag(:b, :class => "caret"){}}".html_safe
+	  		else
+				"#{name} #{content_tag(:b, :class => "caret"){}}".html_safe
+			end
 	  end
 
-	  def drop_down_link(name, menu_type)
+	  def drop_down_link(name, options = {})
 	  		link = "#"
 	  		link_class = "dropdown-toggle"
 	  		data_toggle = "dropdown"
 
-	  		if menu_type == "accordion"
+	  		if options[:menu_type] == "accordion"
 	  			stripped_name = name.gsub(/[^0-9a-z ]/i, '')
 	  			link = "#" + stripped_name
 	  			link_class = "accordion-toggle collapsed"
-		  		data_toggle = "collapse" if menu_type == "accordion"
+		  		data_toggle = "collapse" if options[:menu_type] == "accordion"
 		  	end
 
-			link_to(name_and_caret(name), link, :class => link_class, "data-toggle" => data_toggle)
+			link_to(name_and_caret(name, options), link, :class => link_class, "data-toggle" => data_toggle)
 	  end
 
 	  def drop_down_list(name, menu_type, &block)
