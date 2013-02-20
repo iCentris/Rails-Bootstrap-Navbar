@@ -156,7 +156,7 @@ module RailsBootstrapNavbar
 	  		data_toggle = "dropdown"
 
 	  		if options[:menu_type] == "accordion"
-	  			stripped_name = name.gsub(/[^0-9a-z ]/i, '')
+	  			stripped_name = name.gsub(/[^0-9a-z]/i, '')
 	  			link = "#" + stripped_name
 	  			link_class = "accordion-toggle collapsed"
 		  		data_toggle = "collapse" if options[:menu_type] == "accordion"
@@ -169,7 +169,7 @@ module RailsBootstrapNavbar
 	  		tag_class = "dropdown-menu"
 	  		tag_class = "secondary collapse" if menu_type == "accordion"
 
-  			stripped_name = name.gsub(/[^0-9a-z ]/i, '')
+  			stripped_name = name.gsub(/[^0-9a-z]/i, '')
 
 			content_tag :ul, :id => stripped_name, :class => tag_class, &block
 	  end
