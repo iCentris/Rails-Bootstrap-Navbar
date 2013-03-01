@@ -78,7 +78,7 @@ module RailsBootstrapNavbar
 
 	  	    css_class_options = {position: position, type: options[:type]};
 
-			content_tag :div, :class => nav_bar_css_class(css_class_options) do
+			content_tag :div, id: options[:id], :class => nav_bar_css_class(css_class_options) do
 				yield
 			end
 	  end
