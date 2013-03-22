@@ -151,7 +151,7 @@ module RailsBootstrapNavbar
 	  end
 
 	  def drop_down_link(name, options = {})
-	  		link = "#"
+	  		link = options[:url]||"#"
 	  		link_class = "dropdown-toggle"
 	  		data_toggle = "dropdown"
 
@@ -162,7 +162,7 @@ module RailsBootstrapNavbar
 		  		data_toggle = "collapse" if options[:menu_type] == "accordion"
 		  	end
 
-			link_to(name_and_caret(name, options), link, :class => link_class, "data-toggle" => data_toggle)
+			link_to(name_and_caret(name, options), link, :class => link_class, "data-hover" => data_toggle)
 	  end
 
 	  def drop_down_list(name, menu_type, &block)
