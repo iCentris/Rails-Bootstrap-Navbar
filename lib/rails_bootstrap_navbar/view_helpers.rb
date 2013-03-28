@@ -169,9 +169,9 @@ module RailsBootstrapNavbar
 	  		tag_class = "dropdown-menu"
 	  		tag_class = "secondary collapse" if menu_type == "accordion"
 
-  			stripped_name = name.gsub(/[^0-9a-z]/i, '')
+  			stripped_name = name.gsub(/[^0-9a-z]/i, '').downcase
 
-			content_tag :ul, :id => stripped_name, :class => tag_class, &block
+			content_tag :ul, :id => "nav_#{stripped_name}", :class => tag_class, &block
 	  end
 	end
 end
